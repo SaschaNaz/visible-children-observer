@@ -6,6 +6,7 @@ class VisibleChildrenObserver {
     private _contextMap = new Map<HTMLElement, {
         intersectionObserver: IntersectionObserver;
         mutationObserver: MutationObserver;
+        visibleChlidren: Set<Element>;
     }>();
 
     observe(target: HTMLElement) {
@@ -48,8 +49,17 @@ class VisibleChildrenObserver {
         });
         this._contextMap.set(target, {
             intersectionObserver,
-            mutationObserver
+            mutationObserver,
+            visibleChlidren
         });
+    }
+
+    getVisibleChildren(target: HTMLElement) {
+        const context = this._contextMap.get(target);
+        if (!context) {
+            throw new Error("Not being observed");
+        }
+        return [...context.visibleChlidren];
     }
 
     unobserve(target: HTMLElement) {
