@@ -35,6 +35,15 @@
                 const kyubey = kyubeys[(kyubeys.length * Math.random()) | 0];
                 kyubey.remove();
             });
+            clearKyubey.addEventListener("click", ev => {
+                const kyubeys = Array.from(list.children).filter(child => child.textContent.startsWith("Kyubey"));
+                if (!kyubeys.length) {
+                    return;
+                }
+                for (const kyubey of kyubeys) {
+                    kyubey.remove();
+                }
+            });
         });
     </script>
 </head>
@@ -53,6 +62,7 @@
     <p>
         <button id="addKyubey">Add Kyubey</button>
         <button id="removeKyubey">Remove Kyubey</button>
+        <button id="clearKyubey">Clear Kyubeys</button>
     </p>
 </body>
 
