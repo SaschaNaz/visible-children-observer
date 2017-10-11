@@ -1,0 +1,8 @@
+.list {
+    height: 400px;
+    overflow: auto;
+}
+
+.item {
+    height: 150px;
+}

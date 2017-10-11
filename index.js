@@ -1,34 +1,14 @@
-interface IntersectionObserverEntry {
-    isIntersecting: boolean;
-}
-
-interface DOMRect {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
-}
-
+"use strict";
 class VisibleChildrenObserver {
-    private _contextMap = new Map<HTMLElement, {
-        intersectionObserver: IntersectionObserver;
-        mutationObserver: MutationObserver;
-        visibleChlidren: Set<Element>;
-    }>();
-
-    constructor(private _callback?: (target: HTMLElement) => any) {
-
+    constructor(_callback) {
+        this._callback = _callback;
+        this._contextMap = new Map();
     }
-
-    observe(target: HTMLElement) {
+    observe(target) {
         if (this._contextMap.has(target)) {
             return;
         }
-        const visibleChlidren = new Set<Element>();
+        const visibleChlidren = new Set();
         const intersectionObserver = new IntersectionObserver(entries => {
             for (const entry of entries) {
                 if (entry.isIntersecting) {
@@ -47,7 +27,7 @@ class VisibleChildrenObserver {
                 for (const addedNode of Array.from(record.addedNodes)) {
                     if (addedNode instanceof Element) {
                         intersectionObserver.observe(addedNode);
-                        if (this._isIntersecting(target.getBoundingClientRect() as DOMRect, addedNode.getBoundingClientRect() as DOMRect)) {
+                        if (this._isIntersecting(target.getBoundingClientRect(), addedNode.getBoundingClientRect())) {
                             visibleChlidren.add(addedNode);
                             this._callback && this._callback(target);
                         }
@@ -63,9 +43,8 @@ class VisibleChildrenObserver {
                 }
             }
         });
-        
         for (const child of Array.from(target.children)) {
-            if (this._isIntersecting(target.getBoundingClientRect() as DOMRect, child.getBoundingClientRect() as DOMRect)) {
+            if (this._isIntersecting(target.getBoundingClientRect(), child.getBoundingClientRect())) {
                 visibleChlidren.add(child);
             }
             intersectionObserver.observe(child);
@@ -79,8 +58,7 @@ class VisibleChildrenObserver {
             visibleChlidren
         });
     }
-
-    private _isIntersecting(a: DOMRect, b: DOMRect) {
+    _isIntersecting(a, b) {
         let xa1 = a.x, xa2 = a.x + a.width;
         let xb1 = b.x, xb2 = b.x + b.width;
         let ya1 = a.y, ya2 = a.y + a.height;
@@ -89,16 +67,14 @@ class VisibleChildrenObserver {
         const yIntersect = !(Math.min(ya1, ya2) > Math.max(yb1, yb2)) && !(Math.max(ya1, ya2) < Math.min(yb1, yb2));
         return xIntersect && yIntersect;
     }
-
-    getVisibleChildren(target: HTMLElement) {
+    getVisibleChildren(target) {
         const context = this._contextMap.get(target);
         if (!context) {
             throw new Error("Not being observed");
         }
         return [...context.visibleChlidren];
     }
-
-    unobserve(target: HTMLElement) {
+    unobserve(target) {
         const context = this._contextMap.get(target);
         if (!context) {
             return;
@@ -107,7 +83,6 @@ class VisibleChildrenObserver {
         context.intersectionObserver.disconnect();
         this._contextMap.delete(target);
     }
-
     disconnect() {
         for (const [key, value] of Array.from(this._contextMap)) {
             value.mutationObserver.disconnect();
@@ -116,3 +91,4 @@ class VisibleChildrenObserver {
         }
     }
 }
+//# sourceMappingURL=index.js.map
