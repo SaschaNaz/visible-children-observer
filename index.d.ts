@@ -16,7 +16,6 @@ declare class VisibleChildrenObserver {
     private _contextMap;
     constructor(_callback?: ((target: HTMLElement) => any) | undefined);
     observe(target: HTMLElement): void;
-    private _isIntersecting(a, b);
     getVisibleChildren(target: HTMLElement): Element[];
     unobserve(target: HTMLElement): void;
     disconnect(): void;

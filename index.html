@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="index.css" />
     <script src="index.js"></script>
     <script>
+        const observer = new VisibleChildrenObserver(target => {
+            const visibles = observer.getVisibleChildren(target);
+            span.textContent = visibles.map(visible => visible.textContent.trim())
+        });
         document.addEventListener("DOMContentLoaded", ev => {
-            const observer = new VisibleChildrenObserver(target => {
-                const visibles = observer.getVisibleChildren(target);
-                span.textContent = visibles.map(visible => visible.textContent.trim())
-            });
             observer.observe(list);
 
             addKyubey.addEventListener("click", ev => {

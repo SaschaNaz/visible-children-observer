@@ -27,10 +27,6 @@ class VisibleChildrenObserver {
                 for (const addedNode of Array.from(record.addedNodes)) {
                     if (addedNode instanceof Element) {
                         intersectionObserver.observe(addedNode);
-                        if (this._isIntersecting(target.getBoundingClientRect(), addedNode.getBoundingClientRect())) {
-                            visibleChlidren.add(addedNode);
-                            this._callback && this._callback(target);
-                        }
                     }
                 }
                 for (const removedNode of Array.from(record.removedNodes)) {
@@ -44,9 +40,6 @@ class VisibleChildrenObserver {
             }
         });
         for (const child of Array.from(target.children)) {
-            if (this._isIntersecting(target.getBoundingClientRect(), child.getBoundingClientRect())) {
-                visibleChlidren.add(child);
-            }
             intersectionObserver.observe(child);
         }
         mutationObserver.observe(target, {
@@ -57,15 +50,6 @@ class VisibleChildrenObserver {
             mutationObserver,
             visibleChlidren
         });
-    }
-    _isIntersecting(a, b) {
-        let xa1 = a.x, xa2 = a.x + a.width;
-        let xb1 = b.x, xb2 = b.x + b.width;
-        let ya1 = a.y, ya2 = a.y + a.height;
-        let yb1 = b.y, yb2 = b.y + b.height;
-        const xIntersect = !(Math.min(xa1, xa2) > Math.max(xb1, xb2)) && !(Math.max(xa1, xa2) < Math.min(xb1, xb2));
-        const yIntersect = !(Math.min(ya1, ya2) > Math.max(yb1, yb2)) && !(Math.max(ya1, ya2) < Math.min(yb1, yb2));
-        return xIntersect && yIntersect;
     }
     getVisibleChildren(target) {
         const context = this._contextMap.get(target);
