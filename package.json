@@ -2,7 +2,8 @@
   "name": "visible-children-observer",
   "version": "1.0.0",
   "description": "Observes current visible childrens on root element. [Demo](https://saschanaz.github.io/visible-children-observer/)",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/SaschaNaz/visible-children-observer/issues"
   },
-  "homepage": "https://github.com/SaschaNaz/visible-children-observer#readme"
+  "homepage": "https://github.com/SaschaNaz/visible-children-observer#readme",
+  "devDependencies": {
+    "@types/jake": "0.0.30",
+    "jake": "^8.0.18"
+  }
 }

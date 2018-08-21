@@ -1,19 +1,4 @@
-interface IntersectionObserverEntry {
-    isIntersecting: boolean;
-}
-
-interface DOMRect {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
-}
-
-class VisibleChildrenObserver {
+export default class VisibleChildrenObserver {
     private _contextMap = new Map<HTMLElement, {
         intersectionObserver: IntersectionObserver;
         mutationObserver: MutationObserver;
