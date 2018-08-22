@@ -5,11 +5,8 @@ Observes current visible childrens on root element. [Demo](https://saschanaz.git
 # API
 
 ```ts
-declare class VisibleChildrenObserver {
-    constructor(_callback?: ((target: HTMLElement) => any) | undefined);
-    observe(target: HTMLElement): void;
-    getVisibleChildren(target: HTMLElement): Element[];
-    unobserve(target: HTMLElement): void;
-    disconnect(): void;
-}
+export declare function observe(target: HTMLElement, callback?: (target: HTMLElement) => any): void;
+export declare function getVisibleChildren(target: HTMLElement): Element[];
+export declare function unobserve(target: HTMLElement): void;
+export as namespace VisibleChildrenObserver;
 ```
