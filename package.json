@@ -1,6 +1,6 @@
 {
   "name": "visible-children-observer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Observes current visible childrens on root element. [Demo](https://saschanaz.github.io/visible-children-observer/)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
