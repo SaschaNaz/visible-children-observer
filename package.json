@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "build": "tsc && npx ts-umd-global -p lib/index -n VisibleChildrenObserver",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +22,6 @@
   },
   "homepage": "https://github.com/SaschaNaz/visible-children-observer#readme",
   "devDependencies": {
-    "@types/jake": "0.0.30",
-    "jake": "^8.0.18"
+    "ts-umd-global": "^1.0.0"
   }
 }
